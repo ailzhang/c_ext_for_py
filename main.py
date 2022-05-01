@@ -1,19 +1,44 @@
-import sum_from_ctypes
 import sum_from_pybind11
 import sum_from_cpython
 import time
+import ctypes
 
-N = 50
+sum_from_ctypes = ctypes.CDLL('libsum_from_ctypes.so')
+sum_from_ctypes.my_sum.argtypes = (ctypes.c_int, ctypes.POINTER(ctypes.c_int))
+
+N = 200
+WARMPUP = 10
+
+def run_once(func, x, n=None):
+    start = time.time()
+    if n is not None:
+        func(n, x)
+    else:
+        func(x)
+    return time.time() - start
 
 def timed_run(func, name):
-    a = [1] * 100
-    start = time.time()
-    for _ in range(N):
-        func(a)
-    print(f'{name} took {(time.time() - start) / N}s')
+    acc = 0.
+    for i in range(N):
+        a = [1] * i
+        if name == 'ctypes':
+            n = ctypes.c_int(i)
+            arr_type = ctypes.c_int * i
+            x = arr_type(*a)
+            acc += run_once(func, x, n)
+        else:
+            acc += run_once(func, a)
+    print(f'{name} took {acc / N}s')
 
+for _ in range(WARMPUP):
+    n = 1
+    data = [1] * n
+    arr_type = ctypes.c_int * n;
+    run_once(sum_from_pybind11.my_sum, data)
+    run_once(sum_from_ctypes.my_sum, arr_type(*data), ctypes.c_int(n))
+    run_once(sum_from_cpython.my_sum, data)
 
-timed_run(sum_from_ctypes.my_sum, 'ctypes')
 timed_run(sum_from_pybind11.my_sum, 'pybind')
+timed_run(sum_from_ctypes.my_sum, 'ctypes')
 timed_run(sum_from_cpython.my_sum, 'cpython')
 
