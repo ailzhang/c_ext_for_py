@@ -1,4 +1,4 @@
-# Compile for ctypes demo
+# Compile ctypes demo
 I didn't bother writing a proper `build_ext` for this so manual copy is required.
 
 ```
