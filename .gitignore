@@ -2,3 +2,5 @@ build/*
 __pycache__/*
 *.so
 *.egg-info
+swig_example.py
+swig_sum_wrap.c

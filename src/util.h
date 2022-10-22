@@ -21,3 +21,7 @@ int my_sum(int num_numbers, int *numbers) {
 #endif
   return sum;
 }
+
+int my_add(int a, int b) {
+    return a + b;
+}

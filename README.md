@@ -8,7 +8,9 @@ cmake .. && make
 cp *.so ../
 ```
 
-# Compile pybind11 & cpython demo
+# Compile pybind11 & cpython & swig demo
+
+Make sure you have `swig` installed. (`brew install swig` on mac)
 ```
 python setup.py build && pip install -e .
 ```

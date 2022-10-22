@@ -2,6 +2,7 @@ import sum_from_pybind11
 import sum_from_cpython
 import time
 import ctypes
+from swig_example import my_add
 
 sum_from_ctypes = ctypes.CDLL('libsum_from_ctypes.so')
 sum_from_ctypes.my_sum.argtypes = (ctypes.c_int, ctypes.POINTER(ctypes.c_int))
@@ -42,3 +43,4 @@ timed_run(sum_from_pybind11.my_sum, 'pybind')
 timed_run(sum_from_ctypes.my_sum, 'ctypes')
 timed_run(sum_from_cpython.my_sum, 'cpython')
 
+print('swig demo returns result: ', my_add(1, 2))
