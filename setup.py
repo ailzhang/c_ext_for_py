@@ -9,9 +9,10 @@ pybind_mod = Pybind11Extension('sum_from_pybind11', sources = ['src/sum_pybind11
 subprocess.run(["swig", "-outcurrentdir", "-python", "src/swig_sum.i"])
 swig_mod = Pybind11Extension('_swig_example', sources = ['swig_sum_wrap.c', 'src/sum.c'])
 
+pybind_demo_mod = Pybind11Extension('pybind11_demo', sources = ['src/pybind11_demo.cpp'])
 setup (name = 'demo',
         version = '0.0',
         description = 'This is a demo package',
-        ext_modules = [cpython_mod, pybind_mod, swig_mod],
+        ext_modules = [cpython_mod, pybind_mod, swig_mod, pybind_demo_mod],
         py_modules = ['swig_example']
         )
