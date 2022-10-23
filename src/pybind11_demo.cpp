@@ -1,6 +1,7 @@
 #include <pybind11/pybind11.h>
 #include <pybind11/stl.h>
 
+#include <unistd.h>
 #include <string>
 
 namespace py = pybind11;
@@ -37,5 +38,10 @@ PYBIND11_MODULE(pybind11_demo, m) {
     }
     return n;
   });
+  m.def("long_running", []() {
+    sleep(10);
+  }, py::call_guard<py::gil_scoped_release>());
+  m.def("tp", [](int x) {return "int";});
+  m.def("tp", [](float x) {return "float";});
   m.def("add", &add, "Binary add");
 }
