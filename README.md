@@ -19,9 +19,12 @@ python setup.py build && pip install -e .
 
 ```
 python main.py
+
+python demo_pybind11.py
 ```
 
 # References
+- https://slides.com/ailzhang/code-273049
 - https://en.wikibooks.org/wiki/Python_Programming/Extending_with_C
 - https://github.com/pybind/python_example
 - https://pgi-jcns.fz-juelich.de/portal/pages/using-c-from-python.html
