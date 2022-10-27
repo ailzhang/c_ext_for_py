@@ -1,24 +1,22 @@
 #include <pybind11/pybind11.h>
 #include <pybind11/stl.h>
 
-#include <unistd.h>
 #include <string>
+#include <unistd.h>
 
 namespace py = pybind11;
 
-int add(int a, int b) {
-  return a + b;
-}
+int add(int a, int b) { return a + b; }
 
 struct Response {
   int status;
   std::string reason;
   std::string text;
 
-  Response (int status, std::string reason, std::string text = " "): 
-    status(status), reason(std::move(reason)), text(std::move(text)) {}
-  
-  Response(): Response(200, "OK") {}
+  Response(int status, std::string reason, std::string text = " ")
+      : status(status), reason(std::move(reason)), text(std::move(text)) {}
+
+  Response() : Response(200, "OK") {}
 };
 
 PYBIND11_MODULE(pybind11_demo, m) {
@@ -38,10 +36,10 @@ PYBIND11_MODULE(pybind11_demo, m) {
     }
     return n;
   });
-  m.def("long_running", []() {
-    sleep(10);
-  }, py::call_guard<py::gil_scoped_release>());
-  m.def("tp", [](int x) {return "int";});
-  m.def("tp", [](float x) {return "float";});
+  m.def(
+      "long_running", []() { sleep(10); },
+      py::call_guard<py::gil_scoped_release>());
+  m.def("tp", [](int x) { return "int"; });
+  m.def("tp", [](float x) { return "float"; });
   m.def("add", &add, "Binary add");
 }

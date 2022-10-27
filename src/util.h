@@ -1,6 +1,6 @@
 #include <stdio.h>
-#include <time.h>
 #include <sys/time.h>
+#include <time.h>
 
 int my_sum(int num_numbers, int *numbers) {
 #if 0
@@ -22,6 +22,4 @@ int my_sum(int num_numbers, int *numbers) {
   return sum;
 }
 
-int my_add(int a, int b) {
-    return a + b;
-}
+int my_add(int a, int b) { return a + b; }

@@ -10,6 +10,7 @@ sum_from_ctypes.my_sum.argtypes = (ctypes.c_int, ctypes.POINTER(ctypes.c_int))
 N = 200
 WARMPUP = 10
 
+
 def run_once(func, x, n=None):
     start = time.time()
     if n is not None:
@@ -17,6 +18,7 @@ def run_once(func, x, n=None):
     else:
         func(x)
     return time.time() - start
+
 
 def timed_run(func, name):
     acc = 0.
@@ -31,10 +33,11 @@ def timed_run(func, name):
             acc += run_once(func, a)
     print(f'{name} took {acc / N}s')
 
+
 for _ in range(WARMPUP):
     n = 1
     data = [1] * n
-    arr_type = ctypes.c_int * n;
+    arr_type = ctypes.c_int * n
     run_once(sum_from_pybind11.my_sum, data)
     run_once(sum_from_ctypes.my_sum, arr_type(*data), ctypes.c_int(n))
     run_once(sum_from_cpython.my_sum, data)
