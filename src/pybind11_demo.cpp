@@ -3,6 +3,7 @@
 
 #include <string>
 #include <unistd.h>
+#include <iostream>
 
 namespace py = pybind11;
 
@@ -37,7 +38,7 @@ PYBIND11_MODULE(pybind11_demo, m) {
     return n;
   });
   m.def(
-      "long_running", []() { sleep(10); },
+      "long_running", []() { sleep(10); std::cout << "Done" << std::endl; },
       py::call_guard<py::gil_scoped_release>());
   m.def("tp", [](int x) { return "int"; });
   m.def("tp", [](float x) { return "float"; });
